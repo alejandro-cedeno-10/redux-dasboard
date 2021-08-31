@@ -5,14 +5,15 @@
         <h4 class="card-title">Agregar Ingreso / Egreso</h4>
         <p class="card-description">Especifique el monto y el tipo</p>
 
-        <form>
+        <form (ngSubmit)="newIngresoEgreso()" [formGroup]= "myForm">
           <div class="form-group">
             <label>Descripción</label>
             <input
               type="text"
               class="form-control"
               placeholder="Descripción"
-              name="descripcion"
+              formControlName ="description"
+              name="description"
             />
           </div>
 
@@ -22,6 +23,7 @@
               type="number"
               class="form-control"
               placeholder="Monto"
+              formControlName ="monto"
               name="monto"
             />
             <p>Debe de ser un monto positivo</p>
@@ -30,24 +32,24 @@
           <div class="form-group">
             <label>Tipo</label>
             <br />
-            <button type="button" class="btn btn-primary btn-block">
+            <button  (click)="tipo='egreso'" *ngIf="tipo =='ingreso'" type="button" class="btn btn-primary btn-block">
               Ingreso
             </button>
-            <!-- <button type="button" class="btn btn-warning btn-block">Egreso</button> -->
+            <button (click)="tipo='ingreso'" *ngIf="tipo =='egreso'" type="button" class="btn btn-warning btn-block">Egreso</button>
           </div>
 
           <hr />
-          <button type="button" class="btn btn-success mr-2">
+          <button  *ngIf="!loading" [disabled]='myForm.invalid' type="submit" class="btn btn-success mr-2">
             <i class="fa fa-save"></i>
             Agregar
           </button>
 
-          <!-- 
-                <button disabled class="btn btn-success mr-2">
-                  <i class="fa fa-spin fa-sync"></i>
-                  Espere por favor...
-                </button> 
-              -->
+      
+          <button *ngIf="loading" disabled class="btn btn-success mr-2">
+            <i class="fa fa-spin fa-sync"></i>
+            Espere por favor...
+          </button>  
+              
 
           <button type="reset" class="btn btn-light">Cancelar</button>
         </form>

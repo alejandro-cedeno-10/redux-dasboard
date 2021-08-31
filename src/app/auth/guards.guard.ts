@@ -21,17 +21,17 @@ export class GuardsGuard implements CanActivate, CanLoad {
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
-  ): Observable<boolean  | UrlTree> | boolean {
+  ): | Observable<boolean>  | Promise<boolean>
+  | boolean {
     return this.authService.isAuth();
   }
   canLoad(
     route: Route,
     segments: UrlSegment[]
   ):
-    | Observable<boolean | UrlTree>
-    | Promise<boolean | UrlTree>
-    | boolean
-    | UrlTree {
-    return true;
+    | Observable<boolean>
+    | Promise<boolean>
+    | boolean{
+      return this.authService.isAuth();
   }
 }
